@@ -10,7 +10,8 @@ public class App  extends Frame implements ActionListener {
     private char jogadorAtual = 'X';
     private boolean jogoTerminado = false;
     private Label mensagem;
-
+ 
+    //teste engraçadinho
 
     // ==========================================
     // CONSTRUTOR

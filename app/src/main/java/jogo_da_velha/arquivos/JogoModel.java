@@ -26,53 +26,25 @@ public class JogoModel {
     }
 
     public boolean verificarVitoria() {
+        int[][] vetores = {
+                {0,1,2}, // horizontais
+                {3,4,5},
+                {6,7,8},
+                {0,3,6},// verticais
+                {1,4,7},
+                {2,5,8},
+                {0,4,8}, // diagonais
+                {2,4,6}
+        };
 
-        if (tabuleiro[0] == jogadorAtual &&
-            tabuleiro[1] == jogadorAtual &&
-            tabuleiro[2] == jogadorAtual) {
-            return true;
-        }
+        for(int i=0;i<vetores.length;i++){
+            int contador = 0;
 
-        if (tabuleiro[3] == jogadorAtual &&
-            tabuleiro[4] == jogadorAtual &&
-            tabuleiro[5] == jogadorAtual) {
-            return true;
-        }
+            for(int j=0;j<vetores[i].length;j++){
+                if(tabuleiro[vetores[i][j]] == jogadorAtual) contador++;
+            }
 
-        if (tabuleiro[6] == jogadorAtual &&
-            tabuleiro[7] == jogadorAtual &&
-            tabuleiro[8] == jogadorAtual) {
-            return true;
-        }
-
-        if (tabuleiro[0] == jogadorAtual &&
-            tabuleiro[3] == jogadorAtual &&
-            tabuleiro[6] == jogadorAtual) {
-            return true;
-        }
-
-        if (tabuleiro[1] == jogadorAtual &&
-            tabuleiro[4] == jogadorAtual &&
-            tabuleiro[7] == jogadorAtual) {
-            return true;
-        }
-
-        if (tabuleiro[2] == jogadorAtual &&
-            tabuleiro[5] == jogadorAtual &&
-            tabuleiro[8] == jogadorAtual) {
-            return true;
-        }
-
-        if (tabuleiro[0] == jogadorAtual &&
-            tabuleiro[4] == jogadorAtual &&
-            tabuleiro[8] == jogadorAtual) {
-            return true;
-        }
-
-        if (tabuleiro[2] == jogadorAtual &&
-            tabuleiro[4] == jogadorAtual &&
-            tabuleiro[6] == jogadorAtual) {
-            return true;
+            if(contador==3) return true;
         }
 
         return false;

@@ -44,7 +44,7 @@ public class JogoModel {
                 if(tabuleiro[vetores[i][j]] == jogadorAtual) contador++;
             }
 
-            if(contador==3) return true;
+            if(contador==3) return   true;
         }
 
         return false;

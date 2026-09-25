@@ -78,6 +78,11 @@ public class JogoView extends Frame {
             if (model.verificarVitoria()) {
 
                 mensagem.setText("Jogador " + jogador + " venceu!");
+
+                for(int i=0;i<botoes.length;i++){
+                    botoes[i].setEnabled(false);
+                }
+
                 return;
             }
 
@@ -100,6 +105,7 @@ public class JogoView extends Frame {
 
         for (int i = 0; i < 9; i++) {
             botoes[i].setLabel("");
+            botoes[i].setEnabled(true);
         }
 
         mensagem.setText("Vez do jogador X");

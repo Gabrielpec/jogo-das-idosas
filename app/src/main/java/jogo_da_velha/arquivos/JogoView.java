@@ -1,13 +1,13 @@
 package jogo_da_velha.arquivos;
 
+import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
-public class JogoView extends Frame {
+public class JogoView extends JFrame {
 
-    private Button[] botoes;
-    private Button reiniciar;
-    private Label mensagem;
+    private JButton[] botoes;
+    private JButton reiniciar;
+    private JLabel mensagem;
 
     private JogoModel model;
 
@@ -17,53 +17,41 @@ public class JogoView extends Frame {
 
         setTitle("Jogo da Velha");
         setSize(400, 500);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        mensagem = new Label("Vez do jogador X", Label.CENTER);
+        mensagem = new JLabel("Vez do jogador X", SwingConstants.CENTER);
+        mensagem.setFont(new Font("Arial", Font.PLAIN, 16));
         add(mensagem, BorderLayout.NORTH);
 
-        Panel painel = new Panel();
+        JPanel painel = new JPanel();
         painel.setLayout(new GridLayout(3, 3));
 
-        botoes = new Button[9];
+        botoes = new JButton[9];
 
         for (int i = 0; i < 9; i++) {
 
-            botoes[i] = new Button();
+            botoes[i] = new JButton();
             botoes[i].setFont(new Font("Arial", Font.BOLD, 40));
+            botoes[i].setFocusPainted(false);
 
             final int posicao = i;
 
-            botoes[i].addActionListener(new ActionListener() {
-
-                public void actionPerformed(ActionEvent e) {
-                    jogar(posicao);
-                }
-            });
+            botoes[i].addActionListener(e -> jogar(posicao));
 
             painel.add(botoes[i]);
         }
 
         add(painel, BorderLayout.CENTER);
 
-        reiniciar = new Button("Reiniciar");
+        reiniciar = new JButton("Reiniciar");
+        reiniciar.setFont(new Font("Arial", Font.PLAIN, 16));
 
-        reiniciar.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent e) {
-                reiniciarJogo();
-            }
-        });
+        reiniciar.addActionListener(e -> reiniciarJogo());
 
         add(reiniciar, BorderLayout.SOUTH);
 
-        addWindowListener(new WindowAdapter() {
-
-            public void windowClosing(WindowEvent e) {
-                System.exit(0);
-            }
-        });
-
+        setLocationRelativeTo(null);
         setVisible(true);
     }
 
@@ -73,13 +61,13 @@ public class JogoView extends Frame {
 
         if (model.fazerJogada(posicao)) {
 
-            botoes[posicao].setLabel(String.valueOf(jogador));
+            botoes[posicao].setText(String.valueOf(jogador));
 
             if (model.verificarVitoria()) {
 
                 mensagem.setText("Jogador " + jogador + " venceu!");
 
-                for(int i=0;i<botoes.length;i++){
+                for (int i = 0; i < botoes.length; i++) {
                     botoes[i].setEnabled(false);
                 }
 
@@ -104,7 +92,7 @@ public class JogoView extends Frame {
         model.reiniciar();
 
         for (int i = 0; i < 9; i++) {
-            botoes[i].setLabel("");
+            botoes[i].setText("");
             botoes[i].setEnabled(true);
         }
 

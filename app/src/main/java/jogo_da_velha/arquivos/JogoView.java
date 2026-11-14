@@ -1,7 +1,7 @@
+
 package jogo_da_velha.arquivos;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class JogoView extends JFrame {
 
@@ -18,21 +18,19 @@ public class JogoView extends JFrame {
         setTitle("Jogo da Velha");
         setSize(400, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout());
+        setLocationRelativeTo(null);
 
-        mensagem = new JLabel("Vez do jogador X", SwingConstants.CENTER);
-        mensagem.setFont(new Font("Arial", Font.PLAIN, 16));
-        add(mensagem, BorderLayout.NORTH);
+        mensagem = new JLabel("Vez do jogador X");
+        mensagem.setHorizontalAlignment(SwingConstants.CENTER);
 
         JPanel painel = new JPanel();
-        painel.setLayout(new GridLayout(3, 3));
+        painel.setLayout(new java.awt.GridLayout(3, 3));
 
         botoes = new JButton[9];
 
         for (int i = 0; i < 9; i++) {
 
             botoes[i] = new JButton();
-            botoes[i].setFont(new Font("Arial", Font.BOLD, 40));
             botoes[i].setFocusPainted(false);
 
             final int posicao = i;
@@ -42,16 +40,18 @@ public class JogoView extends JFrame {
             painel.add(botoes[i]);
         }
 
-        add(painel, BorderLayout.CENTER);
-
         reiniciar = new JButton("Reiniciar");
-        reiniciar.setFont(new Font("Arial", Font.PLAIN, 16));
-
         reiniciar.addActionListener(e -> reiniciarJogo());
 
-        add(reiniciar, BorderLayout.SOUTH);
+        JPanel principal = new JPanel();
+        principal.setLayout(new BoxLayout(principal, BoxLayout.Y_AXIS));
 
-        setLocationRelativeTo(null);
+        principal.add(mensagem);
+        principal.add(painel);
+        principal.add(reiniciar);
+
+        add(principal);
+
         setVisible(true);
     }
 
@@ -77,6 +77,11 @@ public class JogoView extends JFrame {
             if (model.verificarEmpate()) {
 
                 mensagem.setText("Empate!");
+
+                for (int i = 0; i < botoes.length; i++) {
+                    botoes[i].setEnabled(false);
+                }
+
                 return;
             }
 
